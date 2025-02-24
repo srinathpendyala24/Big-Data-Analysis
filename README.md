@@ -22,3 +22,4 @@ The use of PySpark or Dask for big data analysis offers several advantages, incl
 One of the key benefits of using PySpark or Dask is the ability to process large datasets in parallel, which can significantly reduce the processing time. This is particularly important when working with massive datasets that require complex analysis. By distributing the processing across multiple nodes or clusters, PySpark and Dask can handle large datasets efficiently and effectively.
 
 #OUTPUT:
+![Image](https://github.com/user-attachments/assets/6cde89e7-fcda-4b57-bc77-29f3673cf070)

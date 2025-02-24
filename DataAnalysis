@@ -1,0 +1,34 @@
+  from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, count, mean, stddev, when
+
+# Initialize Spark Session
+spark = SparkSession.builder.appName("FraudDetectionAnalysis").getOrCreate()
+
+# Load dataset
+data_path = "synthetic_fraud_dataset.csv"
+df = spark.read.csv(data_path, header=True, inferSchema=True)
+
+# Show schema
+df.printSchema()
+
+# Basic statistics
+df.describe().show()
+
+# Count missing values in each column
+missing_values = df.select([(count(when(col(c).isNull(), c)).alias(c)) for c in df.columns])
+missing_values.show()
+
+# Count number of fraud vs non-fraud transactions
+# Count number of fraud vs non-fraud transactions
+fraud_count = df.groupBy("Fraud_Label").count() # Changed column name to "Fraud_Label"
+fraud_count.show()
+
+# Aggregations - Mean and standard deviation of transaction amount by fraud status
+stats = df.groupBy("Fraud_Label").agg(
+    mean("Transaction_Amount").alias("mean_amount"), 
+    stddev("Transaction_Amount").alias("stddev_amount")
+)
+stats.show()
+
+# Stop Spark session
+spark.stop()
